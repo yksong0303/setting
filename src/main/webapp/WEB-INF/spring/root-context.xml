@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+		<bean name="bds" class="org.apache.commons.dbcp2.BasicDataSource">
+			<property name="username" value="c##test"></property>
+			<property name="url" value="test"></property>
+			<property name="password" value="jdbc:oracle:thin:@localhost:1521/xe"></property>
+			<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		</bean>
+		
+		<bean name="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></property>
+			<property name="dataSource" ref="bds"></property>
+			<property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"></property>
+		</bean>
+		<bean name="ss" class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg ref="ssfb"></constructor-arg>	
+		</bean>
+</beans>
